@@ -5,9 +5,21 @@
   </head>
   <body>
     <h1>Welcome to Ask The Audience Survey</h1>
+
+    <h3>Create New Poll</h3>
+    <form action="/poll" method="post">
+      <label>Please enter poll name.</label>
+      <input type="text" name="name"><br><br>
+
+      <label>Please enter 4 options.</label><br>
+      <input type="text" name="option"><br>
+      <input type="text" name="option"><br>
+      <input type="text" name="option"><br>
+      <input type="text" name="option"><br><br>
+      <input id="submit" type="submit"></input>
+    </form>
+
     <div id="connection-count"></div>
-    <button type="button" name="new-poll" id="new-poll">Create New Poll</button>
-    <br>
     <h3><div id="vote-message"></div></h3><br>
 
 

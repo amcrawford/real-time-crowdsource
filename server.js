@@ -1,12 +1,23 @@
 const http = require('http');
 const express = require('express');
-
+const bodyParser = require('body-parser');
+const generateId = require('./lib/generate-id');
 const app = express();
+const votes = {};
+
+app.locals.polls = {};
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res){
   res.sendFile(__dirname + '/public/index.html');
+});
+
+
+app.post('/poll', function(req, res){
+  debugger
 });
 
 const port = process.env.PORT || 3000;
@@ -21,7 +32,6 @@ const server = http.createServer(app)
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
-var votes = {};
 
 function countVotes(votes) {
 var voteCount = {
