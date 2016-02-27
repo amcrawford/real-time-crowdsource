@@ -22,7 +22,7 @@ app.post('/poll', function(req, res){
   var poll = req.body.poll;
   var id = generateId();
   app.locals.polls[id] = poll;
-  poll['votes'] = {};
+  poll['votes'] = [];
   poll['closed'] = false;
 
   res.redirect('/polls/' + id);
@@ -48,12 +48,16 @@ const io = socketIo(server);
 
 function countVotes(poll) {
 var voteCount = {};
-poll.options.forEach(function(option){
-  voteCount[option] = 0
-})
-  for (var vote in poll.votes) {
-    voteCount[poll.votes[vote]]++
-  }
+// poll.options.forEach(function(option){
+//   voteCount[option] = 0
+// })
+  poll['votes'].forEach(function(vote){
+    if(voteCount[vote]){
+      voteCount[vote]++;
+    } else {
+      voteCount[vote] = 1;
+    }
+  })
   return voteCount;
 }
 
@@ -69,7 +73,8 @@ io.on('connection', function (socket) {
   socket.on('message', function (channel, message) {
     if (channel === 'voteCast') {
       var poll = app.locals.polls[message.id]
-      poll['votes'][socket.id] = message.vote;
+      poll['votes'].push(message.option);
+      console.log(poll['votes'])
       socket.emit('voteCount', countVotes(poll));
     } else if (channel === 'userVote'){
       socket.emit('voteCastMessage', message);

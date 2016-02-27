@@ -32,11 +32,13 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 socket.on('voteCount', function (votes) {
-
-  voteCount.innerText = "A: " + votes["A"] +
-                        " B: " + votes["B"] +
-                        " C: " + votes["C"] +
-                        " D: " + votes["D"]
+  var totals = ""
+  for(var key in votes){
+    if (key){
+      totals = totals + key + ": " + votes[key]
+    }
+  }
+  voteCount.innerText = totals
 });
 
 
