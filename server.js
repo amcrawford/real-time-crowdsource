@@ -8,6 +8,7 @@ const votes = {};
 
 app.locals.title = 'Crowdsource';
 app.locals.polls = {};
+app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -30,7 +31,7 @@ app.post('/poll', function(req, res){
 
 app.get('/polls/:id', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.sendFile(__dirname + '/public/show.html');
+  res.render('show-poll', {poll: poll});
 })
 
 const port = process.env.PORT || 3000;
