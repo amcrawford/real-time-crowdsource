@@ -21,16 +21,22 @@ app.get('/', function (req, res){
 app.post('/poll', function(req, res){
   var poll = req.body.poll;
   var id = generateId();
+  var adminId = generateId();
   app.locals.polls[id] = poll;
   poll['votes'] = [];
   poll['closed'] = false;
 
-  res.redirect('/polls/' + id);
+  res.redirect('/polls/' + id + "/" + adminId);
 });
 
 app.get('/polls/:id', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.render('show-poll', {poll: poll});
+  res.render('user-show-poll', {poll: poll});
+})
+
+app.get('/polls/:id/:adminID', function(req, res){
+  var poll = app.locals.polls[req.params.id];
+  res.render('admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: printVotes(countVotes(poll))});
 })
 
 const port = process.env.PORT || 3000;
@@ -59,6 +65,16 @@ var voteCount = {};
     }
   })
   return voteCount;
+}
+
+function printVotes(votes){
+  var totals = ""
+  for(var key in votes){
+    if (key){
+      totals = totals + key + ": " + votes[key] + " || "
+    }
+  }
+  return totals
 }
 
 io.on('connection', function (socket) {
