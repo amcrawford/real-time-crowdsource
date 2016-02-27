@@ -11,9 +11,9 @@
 
 
     <div id="choices">
-      <% poll.options.forEach(function(option){ %>
-        <button> <%= option %> </button>
-      <% }) %>
+      <% for(var i=0; i < poll.options.length; i++){ %>
+        <button id="poll-option-" + <%= i %> ""> <%= poll.options[i] %> </button>
+      <% } %>
     </div><br>
 
     <div id="vote-count">

@@ -6,6 +6,7 @@ var buttons = document.querySelectorAll('#choices button');
 var voteCount = document.getElementById('vote-count');
 var votedMessage = document.getElementById('vote-message');
 var submittedVotes = 0
+var pollId = window.location.pathname.split('/')[2];
 
 
 socket.on('usersConnected', function (count) {
@@ -23,7 +24,7 @@ for (var i = 0; i < buttons.length; i++) {
     if (submittedVotes >= 1){
       votedMessage.innerText = "You have already cast a vote.";
     } else {
-    socket.send('voteCast', this.innerText);
+    socket.send('voteCast', {option: this.innerText, id: pollId});
     socket.send('userVote', this.innerText);
     submittedVotes ++;
     };
@@ -31,6 +32,7 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 socket.on('voteCount', function (votes) {
+
   voteCount.innerText = "A: " + votes["A"] +
                         " B: " + votes["B"] +
                         " C: " + votes["C"] +

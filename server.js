@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const generateId = require('./lib/generate-id');
 const app = express();
-const votes = {};
 
 app.locals.title = 'Crowdsource';
 app.locals.polls = {};
@@ -47,15 +46,13 @@ const socketIo = require('socket.io');
 const io = socketIo(server);
 
 
-function countVotes(votes) {
-var voteCount = {
-    A: 0,
-    B: 0,
-    C: 0,
-    D: 0
-};
-  for (var vote in votes) {
-    voteCount[votes[vote]]++
+function countVotes(poll) {
+var voteCount = {};
+poll.options.forEach(function(option){
+  voteCount[option] = 0
+})
+  for (var vote in poll.votes) {
+    voteCount[poll.votes[vote]]++
   }
   return voteCount;
 }
@@ -65,14 +62,15 @@ io.on('connection', function (socket) {
 
   io.sockets.emit('userConnection', io.engine.clientsCount);
 
-  socket.emit('statusMessage', 'You have connected.');
+  // socket.emit('statusMessage', 'You have connected.');
 
-  io.sockets.emit('voteCount', countVotes(votes));
+  // io.sockets.emit('voteCount', countVotes(poll));
 
   socket.on('message', function (channel, message) {
     if (channel === 'voteCast') {
-      votes[socket.id] = message;
-      socket.emit('voteCount', countVotes(votes));
+      var poll = app.locals.polls[message.id]
+      poll['votes'][socket.id] = message.vote;
+      socket.emit('voteCount', countVotes(poll));
     } else if (channel === 'userVote'){
       socket.emit('voteCastMessage', message);
     }
@@ -81,7 +79,6 @@ io.on('connection', function (socket) {
 
   socket.on('disconnect', function () {
     console.log('A user has disconnected.', io.engine.clientsCount);
-    socket.emit('voteCount', countVotes(votes));
     io.sockets.emit('userConnection', io.engine.clientsCount);
   });
 });
