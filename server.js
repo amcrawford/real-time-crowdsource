@@ -1,10 +1,12 @@
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const generateId = require('./lib/generate-id');
 const app = express();
 const votes = {};
 
+app.locals.title = 'Crowdsource';
 app.locals.polls = {};
 
 app.use(express.static('public'));
@@ -17,8 +19,19 @@ app.get('/', function (req, res){
 
 
 app.post('/poll', function(req, res){
-  debugger
+  var poll = req.body.poll;
+  var id = generateId();
+  app.locals.polls[id] = poll;
+  poll['votes'] = {};
+  poll['closed'] = false;
+
+  res.redirect('/polls/' + id);
 });
+
+app.get('/polls/:id', function(req, res){
+  var poll = app.locals.polls[req.params.id];
+  res.sendFile(__dirname + '/public/show.html');
+})
 
 const port = process.env.PORT || 3000;
 

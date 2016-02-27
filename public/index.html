@@ -9,13 +9,10 @@
     <h3>Create New Poll</h3>
     <form action="/poll" method="post">
       <label>Please enter poll name.</label>
-      <input type="text" name="name"><br><br>
+      <input type="text" name="poll[title]"><br><br>
 
       <label>Please enter 4 options.</label><br>
-      <input type="text" name="option"><br>
-      <input type="text" name="option"><br>
-      <input type="text" name="option"><br>
-      <input type="text" name="option"><br><br>
+      <input type="text" name="poll[options]"><br><br>
       <input id="submit" type="submit"></input>
     </form>
 
