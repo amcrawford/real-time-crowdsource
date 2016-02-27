@@ -8,30 +8,21 @@
 
     <h3>Create New Poll</h3>
     <form action="/poll" method="post">
-      <label>Please enter poll name.</label>
+      <label>Please enter poll name.</label><br>
       <input type="text" name="poll[title]"><br><br>
 
       <label>Please enter 4 options.</label><br>
+      <input type="text" name="poll[options]"><br>
+      <input type="text" name="poll[options]"><br>
+      <input type="text" name="poll[options]"><br>
       <input type="text" name="poll[options]"><br><br>
       <input id="submit" type="submit"></input>
+
     </form>
 
     <div id="connection-count"></div>
-    <h3><div id="vote-message"></div></h3><br>
 
-
-    <div id="choices">
-      <button>A</button>
-      <button>B</button>
-      <button>C</button>
-      <button>D</button>
-    </div><br>
-
-    <div id="vote-count">
-
-    </div>
     <br><br><br>
-    <div id="status-message"></div>
     <!-- Make sure your JS is at the bottom of the body! -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
