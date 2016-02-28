@@ -38,6 +38,13 @@ app.get('/polls/:id/:adminId', function(req, res){
   res.render('admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: countVotes(poll)});
 })
 
+app.post('/polls/:id/:adminId/close', function(req, res){
+  var poll = app.locals.polls[req.params.id];
+  poll['closed'] = true;
+
+  res.redirect('/polls/' + req.params.id + "/" + req.params.adminId);
+})
+
 const port = process.env.PORT || 3000;
 
 const server = http.createServer(app)
