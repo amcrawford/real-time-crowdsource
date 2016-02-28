@@ -12,17 +12,32 @@
       <h2>Submit Your Vote!</h2>
       <div id="connection-count"></div>
       <!-- <h3><div id="vote-message"></div></h3><br> -->
-
-
-      <div id="choices">
+      <table class="centered">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Count</th>
+            <!-- <th>Cast Vote</th> -->
+          </tr>
+        </thead>
+        <tbody id="choices">
+          <% for(var i=0; i < poll.options.length; i++){ %>
+            <tr>
+              <td><button class="btn btn-default"> <%=poll.options[i]%> </button><br><br></td>
+              <td id="<%=poll.options[i]%>-votes"> 0 </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <!-- <div id="choices">
         <% for(var i=0; i < poll.options.length; i++){ %>
           <button class="btn btn-default"> <%= poll.options[i] %> </button><br><br>
         <% } %>
-      </div><br>
+      </div><br> -->
 
-      <div id="vote-count">
+      <!-- <div id="vote-count">
         <%= votes %>
-      </div>
+      </div> -->
     </div>
     <br><br><br>
     <div id="status-message"></div>

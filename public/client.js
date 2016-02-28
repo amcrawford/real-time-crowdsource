@@ -32,16 +32,12 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 socket.on('voteCount', function (votes) {
-  var totals = ""
   for(var key in votes){
-    if (key){
-      totals = totals + key + ": " + votes[key] + " "
-    }
-  }
-  voteCount.innerText = totals
+    document.getElementById(key.toLowerCase() + '-votes').innerText = votes[key]
+  };
 });
 
 
-socket.on('voteCastMessage', function (message) {
-  votedMessage.innerText = "You voted for " + message;
-});
+// socket.on('voteCastMessage', function (message) {
+//   votedMessage.innerText = "You voted for " + message;
+// });

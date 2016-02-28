@@ -83,7 +83,7 @@ io.on('connection', function (socket) {
       poll['votes'].push(message.option);
       io.sockets.emit('voteCount', countVotes(poll));
     } else if (channel === 'userVote'){
-      socket.emit('voteCastMessage', message);
+      // socket.emit('voteCastMessage', message);
     }
   });
 
