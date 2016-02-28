@@ -18,5 +18,8 @@
   "devDependencies": {
     "mocha": "^2.4.5",
     "request": "^2.69.0"
+  },
+  "engines": {
+    "node": "4.1.1"
   }
 }
