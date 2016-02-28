@@ -24,6 +24,7 @@ app.post('/poll', function(req, res){
   app.locals.polls[id] = poll;
   poll['votes'] = [];
   poll['closed'] = false;
+  setPollTimer(poll);
 
   res.redirect('/polls/' + id + "/" + adminId);
 });
@@ -61,16 +62,6 @@ var voteCount = {};
   return voteCount;
 }
 
-function printVotes(votes){
-  var totals = "";
-  for(var key in votes){
-    if (key){
-      totals = totals + key + ": " + votes[key] + " ";
-    }
-  }
-  return totals;
-}
-
 io.on('connection', function (socket) {
   io.sockets.emit('userConnection', io.engine.clientsCount);
 
@@ -91,5 +82,11 @@ io.on('connection', function (socket) {
   });
 });
 
+function setPollTimer(poll){
+  setTimeout(function(){
+    poll['closed'] = true
+    io.sockets.emit('disableVotes')
+  }, (poll['runtime'] * 1000 * 60))
+}
 
 module.exports = server;
