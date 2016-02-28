@@ -6,6 +6,7 @@ var closePoll = document.getElementById('close-poll');
 var buttons = document.querySelectorAll('#choices button');
 var voteCount = document.getElementById('vote-count');
 var votedMessage = document.getElementById('vote-message');
+var adminClosedMessage = document.getElementById('closed-poll');
 var submittedVotes = 0
 var pollId = window.location.pathname.split('/')[2];
 
@@ -46,4 +47,5 @@ socket.on('disableVotes', function(){
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].className += " disabled";
   };
+  adminClosedMessage.innerText = "Poll is Closed"
 })

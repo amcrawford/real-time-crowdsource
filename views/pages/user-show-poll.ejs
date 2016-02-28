@@ -9,11 +9,10 @@
     <h1 class="center"> <%= poll.title %> </h1>
 
     <div class="container">
-      <% console.log(poll.closed) %>
-      <% if(poll.closed){ %>
-        <% include ../partials/closed-poll %>
+    <% if(poll.closed){ %>
+      <% include ../partials/closed-poll %>
     <%  } else { %>
-        <% include ../partials/open-poll %>
+      <% include ../partials/open-poll %>
     <%  } %>
     </div>
     <br><br><br>

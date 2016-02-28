@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1 class="center"> <%= poll.title %> </h1>
+    <h4 class = "center" id="closed-poll"></h4>
 
     <div class="container">
       <h5 class="center">
@@ -16,25 +17,11 @@
       </h5>
       <p class="center">Right Click to Copy and Distribute Poll Link</p><br>
 
-      <h3 class="center">Your Poll Results</h3><br>
-      <table class="centered">
-        <thead>
-          <tr>
-            <th>Option</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody id="choices">
-          <% for(var i=0; i < poll.options.length; i++){ %>
-            <tr>
-              <% if(poll.options[i] != ""){ %>
-                <td><h5><%=poll.options[i]%></h5></td>
-                <td id="<%=poll.options[i].toUpperCase()%>-votes"> <%= votes[poll.options[i].toUpperCase()]%> </td>
-              <% } %>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+      <% if(poll.closed){ %>
+        <% include ../partials/admin-closed-poll %>
+      <%  } else { %>
+        <% include ../partials/admin-open-poll %>
+      <%  } %>
 
       <!-- <div id="connection-count"></div>
       <div id="vote-count">
