@@ -35,7 +35,7 @@ socket.on('voteCount', function (votes) {
   var totals = ""
   for(var key in votes){
     if (key){
-      totals = totals + key + ": " + votes[key] + " || "
+      totals = totals + key + ": " + votes[key] + " "
     }
   }
   voteCount.innerText = totals

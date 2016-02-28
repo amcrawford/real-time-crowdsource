@@ -5,10 +5,14 @@
   </head>
   <body>
     <h1> <%= poll.title %> </h1>
+    <h3>Links</h3>
+    <ul>
+      <li> <a href="/polls/<%= id %>/<%= adminID %>">Poll Administrative Link</a> </li>
+      <li> <a href="/polls/<%= id %>">Active Poll</a> </li>
+    </ul>
 
-    <div id="connection-count"></div>
     <h3>Your Poll Results</h3><br>
-
+    <div id="connection-count"></div>
     <div id="vote-count">
       <%= votes %>
     </div>

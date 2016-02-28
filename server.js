@@ -34,7 +34,7 @@ app.get('/polls/:id', function(req, res){
   res.render('user-show-poll', {poll: poll});
 })
 
-app.get('/polls/:id/:adminID', function(req, res){
+app.get('/polls/:id/:adminId', function(req, res){
   var poll = app.locals.polls[req.params.id];
   res.render('admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: printVotes(countVotes(poll))});
 })
@@ -71,7 +71,7 @@ function printVotes(votes){
   var totals = ""
   for(var key in votes){
     if (key){
-      totals = totals + key + ": " + votes[key] + " || "
+      totals = totals + key + ": " + votes[key] + " "
     }
   }
   return totals
@@ -91,7 +91,7 @@ io.on('connection', function (socket) {
       var poll = app.locals.polls[message.id]
       poll['votes'].push(message.option);
       console.log(poll['votes'])
-      socket.emit('voteCount', countVotes(poll));
+      io.sockets.emit('voteCount', countVotes(poll));
     } else if (channel === 'userVote'){
       socket.emit('voteCastMessage', message);
     }
