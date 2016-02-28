@@ -25,7 +25,7 @@ for (var i = 0; i < buttons.length; i++) {
       votedMessage.innerText = "You have already cast a vote.";
     } else {
     socket.send('voteCast', {option: this.innerText, id: pollId});
-    socket.send('userVote', this.innerText);
+    // socket.send('userVote', this.innerText);
     submittedVotes ++;
     };
   });
@@ -33,7 +33,7 @@ for (var i = 0; i < buttons.length; i++) {
 
 socket.on('voteCount', function (votes) {
   for(var key in votes){
-    document.getElementById(key.toLowerCase() + '-votes').innerText = votes[key]
+    document.getElementById(key.toUpperCase() + '-votes').innerText = votes[key]
   };
 });
 

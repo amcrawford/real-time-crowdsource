@@ -31,7 +31,7 @@ app.post('/poll', function(req, res){
 
 app.get('/polls/:id', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.render('user-show-poll', {poll: poll, votes: printVotes(countVotes(poll))});
+  res.render('user-show-poll', {poll: poll, votes: countVotes(poll)});
 })
 
 app.get('/polls/:id/:adminId', function(req, res){
