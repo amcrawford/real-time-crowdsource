@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css'>
+
+    <title>Ask the Audience</title>
+  </head>
+  <body>
+    <h1 class="center"> <%= poll.title %> </h1>
+
+    <div class="container">
+      <% console.log(poll.closed) %>
+      <% if(poll.closed){ %>
+        <% include ../partials/closed-poll %>
+    <%  } else { %>
+        <% include ../partials/open-poll %>
+    <%  } %>
+    </div>
+    <br><br><br>
+    <div id="status-message"></div>
+    <!-- Make sure your JS is at the bottom of the body! -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

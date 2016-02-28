@@ -30,12 +30,12 @@ app.post('/poll', function(req, res){
 
 app.get('/polls/:id', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.render('user-show-poll', {poll: poll, votes: countVotes(poll)});
+  res.render('pages/user-show-poll', {poll: poll, votes: countVotes(poll)});
 })
 
 app.get('/polls/:id/:adminId', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.render('admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: countVotes(poll)});
+  res.render('pages/admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: countVotes(poll)});
 })
 
 const port = process.env.PORT || 3000;
@@ -80,6 +80,8 @@ io.on('connection', function (socket) {
       poll['votes'].push(message.option);
       io.sockets.emit('voteCount', countVotes(poll));
     } else if (channel === 'closePoll'){
+      var poll = app.locals.polls[message.id]
+      poll['closed'] = true
       io.sockets.emit('disableVotes')
     }
   });
