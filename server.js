@@ -31,7 +31,7 @@ app.post('/poll', function(req, res){
 
 app.get('/polls/:id', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.render('user-show-poll', {poll: poll});
+  res.render('user-show-poll', {poll: poll, votes: printVotes(countVotes(poll))});
 })
 
 app.get('/polls/:id/:adminId', function(req, res){
@@ -54,52 +54,40 @@ const io = socketIo(server);
 
 function countVotes(poll) {
 var voteCount = {};
-// poll.options.forEach(function(option){
-//   voteCount[option] = 0
-// })
   poll['votes'].forEach(function(vote){
     if(voteCount[vote]){
       voteCount[vote]++;
     } else {
       voteCount[vote] = 1;
     }
-  })
+  });
   return voteCount;
 }
 
 function printVotes(votes){
-  var totals = ""
+  var totals = "";
   for(var key in votes){
     if (key){
-      totals = totals + key + ": " + votes[key] + " "
+      totals = totals + key + ": " + votes[key] + " ";
     }
   }
-  return totals
+  return totals;
 }
 
 io.on('connection', function (socket) {
-  console.log('A user has connected.', io.engine.clientsCount);
-
   io.sockets.emit('userConnection', io.engine.clientsCount);
-
-  // socket.emit('statusMessage', 'You have connected.');
-
-  // io.sockets.emit('voteCount', countVotes(poll));
 
   socket.on('message', function (channel, message) {
     if (channel === 'voteCast') {
       var poll = app.locals.polls[message.id]
       poll['votes'].push(message.option);
-      console.log(poll['votes'])
       io.sockets.emit('voteCount', countVotes(poll));
     } else if (channel === 'userVote'){
       socket.emit('voteCastMessage', message);
     }
   });
 
-
   socket.on('disconnect', function () {
-    console.log('A user has disconnected.', io.engine.clientsCount);
     io.sockets.emit('userConnection', io.engine.clientsCount);
   });
 });

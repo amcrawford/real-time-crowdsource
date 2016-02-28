@@ -6,21 +6,23 @@
     <title>Ask the Audience</title>
   </head>
   <body>
-    <h1> <%= poll.title %> </h1>
+    <h1 class="center"> <%= poll.title %> </h1>
 
-    <h2>Submit Your Vote!</h2>
-    <div id="connection-count"></div>
-    <h3><div id="vote-message"></div></h3><br>
+    <div class="container">
+      <h2>Submit Your Vote!</h2>
+      <div id="connection-count"></div>
+      <!-- <h3><div id="vote-message"></div></h3><br> -->
 
 
-    <div id="choices">
-      <% for(var i=0; i < poll.options.length; i++){ %>
-        <button id="poll-option-" + <%= i %> ""> <%= poll.options[i] %> </button>
-      <% } %>
-    </div><br>
+      <div id="choices">
+        <% for(var i=0; i < poll.options.length; i++){ %>
+          <button class="btn btn-default"> <%= poll.options[i] %> </button><br><br>
+        <% } %>
+      </div><br>
 
-    <div id="vote-count">
-
+      <div id="vote-count">
+        <%= votes %>
+      </div>
     </div>
     <br><br><br>
     <div id="status-message"></div>
