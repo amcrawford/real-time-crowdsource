@@ -9,8 +9,11 @@
     <h1 class="center"> <%= poll.title %> </h1>
 
     <div class="container">
-      <h5 class="center"><a href="/polls/<%= id %>/<%= adminID %>">Administrative Link</a> &nbsp || &nbsp
-      <a href="/polls/<%= id %>">Active Poll Link</a></h5>
+      <h5 class="center">
+        <a href="/polls/<%= id %>/<%= adminID %>">Administrative Link</a> &nbsp || &nbsp
+        <a href="/polls/<%= id %>">Active Poll Link</a> &nbsp || &nbsp
+        <a href="/polls/<%= id %>/<%= adminID %>/close">Close Poll</a>
+      </h5>
       <p class="center">Right Click to Copy and Distribute Poll Link</p><br>
 
       <h3 class="center">Your Poll Results</h3><br>
