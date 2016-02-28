@@ -1,24 +1,28 @@
 <!doctype html>
 <html>
   <head>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css'>
     <title>Ask the Audience</title>
   </head>
   <body>
-    <h1>Welcome to Ask The Audience Survey</h1>
+    <h1 class="center">Ask The Audience</h1>
 
-    <h3>Create New Poll</h3>
-    <form action="/poll" method="post">
-      <label>Please enter poll name.</label><br>
-      <input type="text" name="poll[title]"><br><br>
+    <div class="container">
+      <h3 class="center">Create New Poll</h3><br>
+      <form action="/poll" method="post">
+        <div class="container">
+          <label><h5>Please enter poll name.</h5></label><br>
+          <input type="text" name="poll[title]"><br><br>
 
-      <label>Please enter 4 options.</label><br>
-      <input type="text" name="poll[options]"><br>
-      <input type="text" name="poll[options]"><br>
-      <input type="text" name="poll[options]"><br>
-      <input type="text" name="poll[options]"><br><br>
-      <input id="submit" type="submit"></input>
-
-    </form>
+          <label><h5>Please enter 4 options.</h5></label><br>
+          <input type="text" name="poll[options]"><br>
+          <input type="text" name="poll[options]"><br>
+          <input type="text" name="poll[options]"><br>
+          <input type="text" name="poll[options]"><br><br>
+          <input id="submit" type="submit" class="btn btn-default"></input>
+        </div>
+      </form>
+    </div>
 
     <div id="connection-count"></div>
 
