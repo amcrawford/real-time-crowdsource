@@ -83,10 +83,12 @@ io.on('connection', function (socket) {
 });
 
 function setPollTimer(poll){
-  setTimeout(function(){
-    poll['closed'] = true
-    io.sockets.emit('disableVotes')
-  }, (poll['runtime'] * 1000 * 60))
+  if(poll['runtime'] !== "N/A"){
+    setTimeout(function(){
+      poll['closed'] = true
+      io.sockets.emit('disableVotes')
+    }, (poll['runtime'] * 1000 * 60))
+  }
 }
 
 module.exports = server;
