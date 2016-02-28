@@ -2,6 +2,7 @@ var socket = io();
 
 var connectionCount = document.getElementById('connection-count');
 var statusMessage = document.getElementById('status-message');
+var closePoll = document.getElementById('close-poll');
 var buttons = document.querySelectorAll('#choices button');
 var voteCount = document.getElementById('vote-count');
 var votedMessage = document.getElementById('vote-message');
@@ -18,6 +19,11 @@ socket.on('statusMessage', function (message) {
   statusMessage.innerText = message;
 });
 
+if (window.location.pathname.split('/')[3]){
+  closePoll.addEventListener('click', function(){
+    socket.send('closePoll', {id: pollId});
+  })
+}
 
 for (var i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', function () {
@@ -25,7 +31,6 @@ for (var i = 0; i < buttons.length; i++) {
       votedMessage.innerText = "You have already cast a vote.";
     } else {
     socket.send('voteCast', {option: this.innerText, id: pollId});
-    // socket.send('userVote', this.innerText);
     submittedVotes ++;
     };
   });
@@ -37,7 +42,8 @@ socket.on('voteCount', function (votes) {
   };
 });
 
-
-// socket.on('voteCastMessage', function (message) {
-//   votedMessage.innerText = "You voted for " + message;
-// });
+socket.on('disableVotes', function(){
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].className += " disabled";
+  };
+})
