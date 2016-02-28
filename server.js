@@ -8,15 +8,14 @@ const app = express();
 app.locals.title = 'Crowdsource';
 app.locals.polls = {};
 app.set('view engine', 'ejs');
-
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
 app.get('/', function (req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
-
 
 app.post('/poll', function(req, res){
   var poll = req.body.poll;
@@ -36,7 +35,7 @@ app.get('/polls/:id', function(req, res){
 
 app.get('/polls/:id/:adminId', function(req, res){
   var poll = app.locals.polls[req.params.id];
-  res.render('admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: printVotes(countVotes(poll))});
+  res.render('admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: countVotes(poll)});
 })
 
 const port = process.env.PORT || 3000;
@@ -46,11 +45,9 @@ const server = http.createServer(app)
                     console.log('Listening on port ' + port + '.');
                   });
 
-
-
+// Websockets
 const socketIo = require('socket.io');
 const io = socketIo(server);
-
 
 function countVotes(poll) {
 var voteCount = {};

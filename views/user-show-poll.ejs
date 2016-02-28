@@ -9,7 +9,7 @@
     <h1 class="center"> <%= poll.title %> </h1>
 
     <div class="container">
-      <h2>Submit Your Vote!</h2>
+      <h3 class="center">Submit Your Vote!</h3>
       <div id="connection-count"></div>
       <table class="centered">
         <thead>
@@ -23,7 +23,7 @@
             <tr>
               <% if(poll.options[i] != ""){ %>
                 <td><button class="btn btn-default"> <%=poll.options[i]%> </button><br><br></td>
-                <td id="<%=poll.options[i].toUpperCase()%>-votes"> <%= votes[poll.options[i]]%> </td>
+                <td id="<%=poll.options[i].toUpperCase()%>-votes"> <%= votes[poll.options[i].toUpperCase()]%> </td>
               <% } %>
             </tr>
           <% } %>

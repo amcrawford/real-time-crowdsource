@@ -33,7 +33,7 @@ for (var i = 0; i < buttons.length; i++) {
 
 socket.on('voteCount', function (votes) {
   for(var key in votes){
-    document.getElementById(key.toUpperCase() + '-votes').innerText = votes[key]
+    document.getElementById(key.toUpperCase() + '-votes').innerText = votes[key];
   };
 });
 
