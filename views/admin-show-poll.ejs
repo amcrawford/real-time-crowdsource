@@ -6,19 +6,19 @@
     <title>Ask the Audience</title>
   </head>
   <body>
-    <h1> <%= poll.title %> </h1>
-    <h3>Links</h3>
-    <ul>
-      <li> <a href="/polls/<%= id %>/<%= adminID %>">Poll Administrative Link</a> </li>
-      <li> <a href="/polls/<%= id %>">Active Poll</a> </li>
-    </ul>
+    <h1 class="center"> <%= poll.title %> </h1>
 
-    <h3>Your Poll Results</h3><br>
-    <div id="connection-count"></div>
-    <div id="vote-count">
-      <%= votes %>
+    <div class="container">
+        <h5 class="center"><a href="/polls/<%= id %>/<%= adminID %>">Administrative Link</a> &nbsp || &nbsp
+        <a href="/polls/<%= id %>">Active Poll Link</a></h5><br>
+
+      <h3 class="center">Your Poll Results</h3><br>
+      <div id="connection-count"></div>
+      <div id="vote-count">
+        <%= votes %>
+      </div>
+      <br><br><br>
     </div>
-    <br><br><br>
     <div id="status-message"></div>
     <!-- Make sure your JS is at the bottom of the body! -->
     <script src="/socket.io/socket.io.js"></script>
