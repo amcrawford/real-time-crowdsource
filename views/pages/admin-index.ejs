@@ -6,12 +6,15 @@
     <title>Ask the Audience</title>
   </head>
   <body>
-    <h4 class = "center" id="closed-poll"></h4>
+    <h4 class = "center" id="close-poll"></h4>
+    <h1 class="center">Your Polls</h1>
 
     <div class="container">
-      <h5 class="center">
-
-      </h5>
+      <!-- <a href="#">More</a> &nbsp || &nbsp -->
+      <%= console.log(polls) %>
+      <% for(var i=0; i < polls.length; i++){ %>
+        <a href="/polls/<%= polls[i].id %>/<%= polls[i].adminId %>"><%= polls[i].title %></a> &nbsp || &nbsp
+      <% }%>
 
       <br><br><br>
     </div>

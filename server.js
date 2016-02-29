@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const _ = require("underscore");
 const generateId = require('./lib/generate-id');
 const countVotes = require('./lib/count-votes');
 const app = express();
@@ -23,6 +24,8 @@ app.post('/poll', function(req, res){
   var id = generateId();
   var adminId = req.body.poll.adminId;
   app.locals.polls[id] = poll;
+  poll['adminId'] = adminId;
+  poll['id'] = id;
   poll['votes'] = [];
   poll['closed'] = false;
   setPollTimer(poll);
@@ -36,8 +39,13 @@ app.get('/polls/:id', function(req, res){
 })
 
 app.get('/polls/admin/:adminId', function(req, res){
-  var polls = Object.keys(app.locals.polls).filter(function(key) {return app.locals.polls[key] === req.params.adminId})
-  res.render('pages/admin-index', {polls: polls, adminID: req.params.adminId});
+  var pollList = [];
+  var keys = Object.keys(app.locals.polls)
+  for (var i = 0; i < keys.length; i++){
+    var poll = app.locals.polls[keys[i]];
+    if(poll['adminId'] === req.params.adminId){ pollList.push(poll)}
+  }
+  res.render('pages/admin-index', {polls: pollList});
 })
 
 app.get('/polls/:id/:adminId', function(req, res){

@@ -11,8 +11,9 @@
 
     <div class="container">
       <h5 class="center">
-        <a href="/polls/<%= id %>/<%= adminID %>">Administrative Link</a> &nbsp || &nbsp
+        <a href="/polls/<%= id %>/<%= poll.adminID %>">Administrative Link</a> &nbsp || &nbsp
         <a href="/polls/<%= id %>">Active Poll Link</a> &nbsp || &nbsp
+        <a href="/polls/admin/<%= poll.adminId %>">All Your Polls</a> &nbsp || &nbsp
         <a href="#" id="close-poll">Close Poll</a>
       </h5>
       <p class="center">Right Click to Copy and Distribute Poll Link</p><br>
