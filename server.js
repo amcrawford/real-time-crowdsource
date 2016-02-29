@@ -35,6 +35,11 @@ app.get('/polls/:id', function(req, res){
   res.render('pages/user-show-poll', {poll: poll, votes: countVotes(poll)});
 })
 
+app.get('/polls/admin/:adminId', function(req, res){
+  var polls = Object.keys(app.locals.polls).filter(function(key) {return app.locals.polls[key] === req.params.adminId})
+  res.render('pages/admin-index', {polls: polls, adminID: req.params.adminId});
+})
+
 app.get('/polls/:id/:adminId', function(req, res){
   var poll = app.locals.polls[req.params.id];
   res.render('pages/admin-show-poll', {poll: poll, id: req.params.id, adminID: req.params.adminId, votes: countVotes(poll)});
