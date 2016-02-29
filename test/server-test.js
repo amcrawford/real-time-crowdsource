@@ -68,4 +68,125 @@ describe('Server', () => {
       });
     });
   });
+
+  describe('GET /polls/:id', () => {
+
+    beforeEach(function() {
+      app.locals.polls.testPoll = fixtures.validPoll;
+    });
+
+    it('should not return a 404', (done) => {
+      this.request.get('/polls/testPoll', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      });
+    });
+
+
+    it('should return a page that has the title of the poll', (done) => {
+      var poll = app.locals.polls.testPoll;
+
+      this.request.get('/polls/testPoll', (error, response) => {
+        if (error) { done(error); }
+        assert(response.body.includes(poll.title), `"${response.body}" does not include "${poll.title}"`);
+        done();
+      });
+    });
+
+    it('should return a page that has the poll options', (done) => {
+      var poll = app.locals.polls.testPoll;
+
+      this.request.get('/polls/testPoll', (error, response) => {
+        if(error) { done(error); }
+        assert(response.body.includes(poll.options[0]),
+               `"${response.body}" does not include "${poll.options.first}".`);
+        done();
+      });
+    });
+
+    it('should show closed message if poll is closed', (done) => {
+      var poll = app.locals.polls.testPoll;
+      poll['closed'] = true;
+
+      this.request.get('/polls/testPoll', (error, response) => {
+        if(error) { done(error); }
+        assert(response.body.includes("This Poll is Closed"));
+        done();
+      });
+    });
+  });
+
+  describe('GET /polls/admin/:adminId', () => {
+
+    beforeEach(function() {
+      app.locals.polls.testPoll = fixtures.validPoll;
+    });
+
+    it('should not return a 404', (done) => {
+      this.request.get('/polls/admin/adminId', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      });
+    });
+
+    it('should return a page with admins poll info', (done) => {
+      var poll = app.locals.polls.testPoll;
+
+      this.request.get('/polls/admin/adminId', (error, response) => {
+        if (error) { done(error); }
+        assert(response.body.includes("Your Polls"), `"${response.body}" does not include Your Polls`);
+        assert(response.body.includes(poll.title), `"${response.body}" does not include "${poll.title}"`);
+        done();
+      });
+    });
+
+    it('should return a link to create new poll', (done) => {
+      var poll = app.locals.polls.testPoll;
+
+      this.request.get('/polls/admin/adminId', (error, response) => {
+        if (error) { done(error); }
+        assert(response.body.includes("Create New Poll"), `"${response.body}" does not include Create New Poll`);
+        done();
+      });
+    });
+  });
+
+  describe('GET /polls/:id/:adminId', () => {
+
+    beforeEach(function() {
+      app.locals.polls.testPoll = fixtures.validPoll;
+    });
+
+    it('should not return a 404', (done) => {
+      this.request.get('/polls/testPoll/adminId', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      });
+    });
+
+    it('should return a page with current poll info', (done) => {
+      var poll = app.locals.polls.testPoll;
+
+      this.request.get('/polls/testPoll/adminId', (error, response) => {
+        if (error) { done(error); }
+        assert(response.body.includes(poll.title), `"${response.body}" does not include "${poll.title}"`);
+        assert(response.body.includes("Active Poll Link"), `"${response.body}" does not include Active Poll Link`);
+        done();
+      });
+    });
+
+    it('should return a page with current poll options', (done) => {
+      var poll = app.locals.polls.testPoll;
+
+      this.request.get('/polls/testPoll/adminId', (error, response) => {
+        if (error) { done(error); }
+        assert(response.body.includes(poll.options[0]),
+               `"${response.body}" does not include "${poll.options.first}".`);
+        done();
+      });
+    });
+  });
 });
