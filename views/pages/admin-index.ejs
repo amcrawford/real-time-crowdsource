@@ -11,12 +11,25 @@
     <h5 class="center">
       <a href="/polls/admin/<%= polls[0].adminId %>">All Your Polls</a> &nbsp || &nbsp
       <a href="/" id="close-poll">Create New Poll</a>
-    </h5><br>
+    </h5><br><br>
 
     <div class="container">
-      <% for(var i=0; i < polls.length; i++){ %>
-        <h5><a href="/polls/<%= polls[i].id %>/<%= polls[i].adminId %>"><%= polls[i].title %></a></h5><br>
-      <% }%>
+      <table class="centered">
+        <thead>
+          <tr>
+            <th>Poll Name</th>
+            <th>Open?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < polls.length; i++){ %>
+            <tr>
+              <td><h5><a href="/polls/<%= polls[i].id %>/<%= polls[i].adminId %>"><%= polls[i].title %></a></h5></td>
+              <td> <%= !polls[i].closed %></td>
+            </tr>
+          <% }%>
+        </tbody>
+      </table>
       <br><br><br>
     </div>
     <div id="status-message"></div>
