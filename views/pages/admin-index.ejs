@@ -8,14 +8,15 @@
   <body>
     <h4 class = "center" id="close-poll"></h4>
     <h1 class="center">Your Polls</h1>
+    <h5 class="center">
+      <a href="/polls/admin/<%= polls[0].adminId %>">All Your Polls</a> &nbsp || &nbsp
+      <a href="/" id="close-poll">Create New Poll</a>
+    </h5><br>
 
     <div class="container">
-      <!-- <a href="#">More</a> &nbsp || &nbsp -->
-      <%= console.log(polls) %>
       <% for(var i=0; i < polls.length; i++){ %>
-        <a href="/polls/<%= polls[i].id %>/<%= polls[i].adminId %>"><%= polls[i].title %></a> &nbsp || &nbsp
+        <h5><a href="/polls/<%= polls[i].id %>/<%= polls[i].adminId %>"><%= polls[i].title %></a></h5><br>
       <% }%>
-
       <br><br><br>
     </div>
     <div id="status-message"></div>
