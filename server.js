@@ -21,7 +21,7 @@ app.get('/', function (req, res){
 app.post('/poll', function(req, res){
   var poll = req.body.poll;
   var id = generateId();
-  var adminId = generateId();
+  var adminId = req.body.poll.adminId;
   app.locals.polls[id] = poll;
   poll['votes'] = [];
   poll['closed'] = false;
