@@ -14,10 +14,22 @@ socket.on('usersConnected', function (count) {
   connectionCount.innerText = 'Connected Users: ' + count;
 });
 
-
 socket.on('statusMessage', function (message) {
   statusMessage.innerText = message;
 });
+
+socket.on('voteCount', function (votes) {
+  for(var key in votes){
+    document.getElementById(key.toUpperCase() + '-votes').innerText = votes[key];
+  };
+});
+
+socket.on('disableVotes', function(){
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].className += " disabled";
+  };
+  adminClosedMessage.innerText = "Poll is Closed"
+})
 
 if (window.location.pathname.split('/')[3]){
   closePoll.addEventListener('click', function(){
@@ -35,16 +47,3 @@ for (var i = 0; i < buttons.length; i++) {
     };
   });
 }
-
-socket.on('voteCount', function (votes) {
-  for(var key in votes){
-    document.getElementById(key.toUpperCase() + '-votes').innerText = votes[key];
-  };
-});
-
-socket.on('disableVotes', function(){
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].className += " disabled";
-  };
-  adminClosedMessage.innerText = "Poll is Closed"
-})
