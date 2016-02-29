@@ -1,6 +1,7 @@
 const assert = require('assert');
 const request = require('request');
 const app = require('../server');
+const fixtures = require('./fixtures');
 
 describe('Server', () => {
 
@@ -63,7 +64,6 @@ describe('Server', () => {
         var pollCount = Object.keys(app.locals.polls).length;
 
         assert.equal(pollCount, 1);
-
         done();
       });
     });

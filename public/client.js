@@ -1,6 +1,5 @@
 var socket = io();
 
-var connectionCount = document.getElementById('connection-count');
 var statusMessage = document.getElementById('status-message');
 var closePoll = document.getElementById('close-poll');
 var buttons = document.querySelectorAll('#choices button');
