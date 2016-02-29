@@ -2,7 +2,6 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const _ = require("underscore");
 const generateId = require('./lib/generate-id');
 const countVotes = require('./lib/count-votes');
 const app = express();
