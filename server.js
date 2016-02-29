@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const generateId = require('./lib/generate-id');
+const countVotes = require('./lib/count-votes');
 const app = express();
 
 app.locals.title = 'Crowdsource';
@@ -49,18 +50,6 @@ const server = http.createServer(app)
 // Websockets
 const socketIo = require('socket.io');
 const io = socketIo(server);
-
-function countVotes(poll) {
-var voteCount = {};
-  poll['votes'].forEach(function(vote){
-    if(voteCount[vote]){
-      voteCount[vote]++;
-    } else {
-      voteCount[vote] = 1;
-    }
-  });
-  return voteCount;
-}
 
 io.on('connection', function (socket) {
   io.sockets.emit('userConnection', io.engine.clientsCount);
