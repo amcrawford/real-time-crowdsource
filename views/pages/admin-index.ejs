@@ -6,12 +6,16 @@
     <title>Ask the Audience</title>
   </head>
   <body>
+    <nav>
+      <div class="nav-wrapper">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/polls/admin/<%= polls[0].adminId %>">All Your Polls</a></li>
+          <li><a href="/" id="close-poll">Create New Poll</a></li>
+        </ul>
+      </div>
+    </nav>
     <h4 class = "center" id="close-poll"></h4>
     <h1 class="center">Your Polls</h1>
-    <h5 class="center">
-      <a href="/polls/admin/<%= polls[0].adminId %>">All Your Polls</a> &nbsp || &nbsp
-      <a href="/" id="close-poll">Create New Poll</a>
-    </h5><br><br>
 
     <div class="container">
       <table class="centered">
