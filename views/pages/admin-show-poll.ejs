@@ -6,17 +6,25 @@
     <title>Ask the Audience</title>
   </head>
   <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo"><%= poll.title %> </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/polls/admin/<%= poll.adminId %>">See All Your Polls</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <h1 class="center"> <%= poll.title %> </h1>
     <h4 class = "center" id="closed-poll"></h4>
 
     <div class="container">
       <h5 class="center">
-        <a href="/polls/<%= id %>/<%= poll.adminID %>">Administrative Link</a> &nbsp || &nbsp
+        <a href="/polls/<%= id %>/<%= poll.adminID %>">Poll Admin Link</a> &nbsp || &nbsp
         <a href="/polls/<%= id %>">Active Poll Link</a> &nbsp || &nbsp
-        <a href="/polls/admin/<%= poll.adminId %>">All Your Polls</a> &nbsp || &nbsp
         <a href="#" id="close-poll">Close Poll</a>
       </h5>
-      <p class="center">Right Click to Copy and Distribute Poll Link</p><br>
+      <p class="center">This Poll: Right Click to Copy and Distribute Poll Link</p><br>
 
       <% if(poll.closed){ %>
         <% include ../partials/admin-closed-poll %>
